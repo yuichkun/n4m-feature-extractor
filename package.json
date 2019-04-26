@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "child-install": "cd ./electron; npm install",
-    "child-build": "cd ./electron; npm run build",
-    "setup": "npm install; npm run child-install; npm run child-build"
+    "postinstall": "cd ./electron; npm install"
   },
   "keywords": [],
   "author": "Yuichi Yogo",

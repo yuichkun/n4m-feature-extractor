@@ -7,7 +7,8 @@
     "start": "npm run watch & npm run launch",
     "launch": "DEBUG=1 electron .",
     "watch": "webpack --mode development --watch",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "postinstall": "npm run build"
   },
   "author": "Yuichi Yogo",
   "license": "ISC",
