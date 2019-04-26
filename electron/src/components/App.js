@@ -126,12 +126,13 @@ export default class App extends React.Component {
 
   onClassified(err, results){
     if(err) return;
-    debugger;
-    const result = results[0].label;
-    this.setState({status: result});
+    const topResult = results[0];
+    const { confidence } = topResult;
+    const status = confidence > 0.8 ? topResult.label : "undetectable";
+    this.setState({status});
     const { socket } = this.props;
     socket.emit('dispatch', {
-      data: result
+      data: status
     });
     this.classify();
   }
