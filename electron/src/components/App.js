@@ -1,5 +1,6 @@
 import React from 'react';
 import Label from './Label';
+import ml5 from 'ml5';
 
 export default class App extends React.Component {
 
@@ -7,6 +8,7 @@ export default class App extends React.Component {
     super(props);
     this.onClassified = this.onClassified.bind(this);
     this.state = {
+      status: 'ready',
       nOfLabels: 2,
       targetLabel: null,
       classifier: null,
@@ -37,10 +39,20 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>App</h1>
+        { this.renderStatus()}
         { this.renderSelector() }
         { this.renderLabels() }
         { this.renderGo() }
+      </div>
+    );
+  }
+
+  renderStatus() {
+    const { status } = this.state;
+    return (
+      <div>
+        <span>Status: </span>
+        <span>{status}</span>
       </div>
     );
   }
@@ -76,6 +88,9 @@ export default class App extends React.Component {
               targetLabel: newTarget
             });
           }}
+          statusUpdater={status => {
+            this.setState({ status });
+          }}
         />
       );
     }
@@ -88,13 +103,17 @@ export default class App extends React.Component {
       <button
         onClick={ async () => {
           await classifier.train(loss => {
-            console.log(`loss ${loss}`);
+            const status = `loss ${loss}`;
+            this.setState({
+              status
+            });
           });
-          console.log('Done Training');
+          const status = 'Done Training';
+          this.setState({ status });
           this.classify();
         }}
       >
-        GO
+       Train&Start Classifying
       </button>
     );
   }
@@ -105,12 +124,14 @@ export default class App extends React.Component {
     classifier.classify(onClassified);
   }
 
-  onClassified(err, result){
+  onClassified(err, results){
     if(err) return;
-    console.log('result:',  result);
+    debugger;
+    const result = results[0].label;
+    this.setState({status: result});
     const { socket } = this.props;
     socket.emit('dispatch', {
-      data: result,
+      data: result
     });
     this.classify();
   }

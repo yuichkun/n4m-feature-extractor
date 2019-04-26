@@ -37,9 +37,12 @@ export default class Label extends React.Component {
         () => {
           if (targetLabel === null) {
             setTargetLabel(name);
+            let count = 1;
             const intervalID = setInterval(
               () => {
-                console.log(`Feeding ${name}`);
+                const status = `Feeding ${name} ${count}`;
+                count++;
+                this.props.statusUpdater(status);
                 classifier.addImage(name);
               },
               100
