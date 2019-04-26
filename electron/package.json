@@ -4,14 +4,15 @@
   "description": "",
   "main": "src/main.js",
   "scripts": {
-    "build": "webpack --mode development",
-    "start": "DEBUG=1 electron .",
-    "develop": "npm run build; npm start"
+    "start": "npm run watch & npm run launch",
+    "launch": "DEBUG=1 electron .",
+    "watch": "webpack --mode development --watch",
+    "build": "webpack --mode production"
   },
   "author": "Yuichi Yogo",
   "license": "ISC",
   "dependencies": {
-    "ml5": "^0.1.3",
+    "ml5": "^0.2.3",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "socket.io-client": "^2.1.1"
