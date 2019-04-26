@@ -1,5 +1,5 @@
 {
-  "name": "feature-extractor",
+  "name": "n4m-feature-extractor",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "keywords": [],
   "author": "Yuichi Yogo",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "electron": "^3.0.10",
     "socket.io": "^2.2.0"
