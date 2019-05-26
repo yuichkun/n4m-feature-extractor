@@ -1,14 +1,16 @@
 import React from 'react';
 import Label from './Label';
 import ml5 from 'ml5';
+import { withTranslation } from 'react-i18next';
 
-export default class App extends React.Component {
+class App extends React.Component {
 
   constructor(props){
     super(props);
+    const { t } = props; 
     this.onClassified = this.onClassified.bind(this);
     this.state = {
-      status: 'ready',
+      status: t('status.ready'),
       nOfLabels: 2,
       targetLabel: null,
       classifier: null,
@@ -49,9 +51,10 @@ export default class App extends React.Component {
 
   renderStatus() {
     const { status } = this.state;
+    const { t } = this.props;
     return (
       <div>
-        <span>Status: </span>
+        <span>{t('status.header')}: </span>
         <span>{status}</span>
       </div>
     );
@@ -60,7 +63,7 @@ export default class App extends React.Component {
   renderSelector() {
     const options = [];
     for (let i = 2; i <= 10; i++){
-      options.push(<option value={i}>{i}</option>);
+      options.push(<option key={`option-${i}`} value={i}>{i}</option>);
     }
     return (
       <select value={this.state.nOfLabels} onChange={e => {
@@ -98,22 +101,23 @@ export default class App extends React.Component {
   }
 
   renderGo() {
+    const { t } = this.props;
     const { classifier } = this.state;
     return (
       <button
         onClick={ async () => {
           await classifier.train(loss => {
-            const status = `loss ${loss}`;
+            const status = t('status.loss', { loss });
             this.setState({
               status
             });
           });
-          const status = 'Done Training';
+          const status = t('status.doneTraining');
           this.setState({ status });
           this.classify();
         }}
       >
-       Train&Start Classifying
+      { t('status.startTraining')}
       </button>
     );
   }
@@ -138,3 +142,5 @@ export default class App extends React.Component {
   }
 
 }
+
+export default withTranslation()(App);

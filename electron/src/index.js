@@ -2,6 +2,7 @@ import io from "socket.io-client";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
+import './i18n';
 
 // Initialize Socket.io.
 // This is connecting to the main process of Electron and then to Max but alternatively you could choose

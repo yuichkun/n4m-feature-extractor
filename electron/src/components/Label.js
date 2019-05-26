@@ -1,11 +1,14 @@
 import React from 'react';
+import { withTranslation, Trans } from 'react-i18next';
 
-export default class Label extends React.Component {
+class Label extends React.Component {
 
   constructor(props) {
     super(props);
+    const { t } = props; 
+    const defaultLabel = t('label.default');
     this.state = {
-      name: `Label${props.index}`,
+      name: `${defaultLabel}${props.index}`,
       isFeeding: false,
       intervalID: null,
     };
@@ -29,9 +32,9 @@ export default class Label extends React.Component {
   }
 
   renderButton() {
-    const { classifier, setTargetLabel, targetLabel } = this.props;
+    const { classifier, setTargetLabel, targetLabel, t } = this.props;
     const { name, isFeeding, intervalID } = this.state;
-    const buttonStatus = isFeeding ? 'Stop Learning' : 'Start Learning';
+    const buttonStatus = isFeeding ? t('status.stopLearning') : t('status.startLearning');
     return (
       <button onClick={
         () => {
@@ -40,7 +43,7 @@ export default class Label extends React.Component {
             let count = 1;
             const intervalID = setInterval(
               () => {
-                const status = `Feeding ${name} ${count}`;
+                const status = t('status.feeding', {name, count});
                 count++;
                 this.props.statusUpdater(status);
                 classifier.addImage(name);
@@ -68,3 +71,5 @@ export default class Label extends React.Component {
   }
 
 }
+
+export default withTranslation()(Label);
