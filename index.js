@@ -10,7 +10,14 @@ const electron = require("electron");
 const proc     = require("child_process");
 const child    = proc.spawn(electron, ["./electron"]);
 
+
 io.on("connection", (socket) => {
+	MaxAPI.addHandler('japanese', () => {
+		socket.send('ja');
+	});
+	MaxAPI.addHandler('english', () => {
+		socket.send('en');
+	});
 
 	console.log("Socket is connected with Electron App");
 
