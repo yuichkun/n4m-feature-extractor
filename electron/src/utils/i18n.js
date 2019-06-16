@@ -12,6 +12,8 @@ const resources = {
         feeding: "Feeding for {{name}}. Count: {{count}}",
         doneTraining: "Done Training.",
         loss: "Now Training. Loss - {{loss}}",
+        detected: "Detected {{label}}",
+        startTraining: "Start Training",
         undetectable: "undetectable"
       },
       label: {
@@ -30,6 +32,7 @@ const resources = {
         feeding: "{{count}}枚目の{{name}}を学習中",
         doneTraining: "訓練完了",
         loss: "訓練中。Loss - {{loss}}",
+        detected: "分類結果 {{label}}",
         startTraining: "訓練、分類開始。",
         undetectable: "分類不能"
       },
