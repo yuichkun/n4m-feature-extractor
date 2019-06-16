@@ -12,10 +12,10 @@ const child    = proc.spawn(electron, ["./electron"]);
 
 
 io.on("connection", (socket) => {
-	MaxAPI.addHandler('japanese', () => {
+	MaxAPI.addHandler('Japanese', () => {
 		socket.send('ja');
 	});
-	MaxAPI.addHandler('english', () => {
+	MaxAPI.addHandler('English', () => {
 		socket.send('en');
 	});
 
